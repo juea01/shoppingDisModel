@@ -85,6 +85,15 @@ public class Users {
 	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in Order, not in user
 	@JsonIgnore
 	private List<Orders> orders;
+	
+	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in article, not in user
+	@JsonIgnore
+	private List<Articles> articles;
+	
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Comment> comments;
 
 	public Users() {
 
@@ -98,7 +107,7 @@ public class Users {
 			@Size(min = 2, message = "State name should have atleast 2 characters") String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code") int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders) {
+			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -115,6 +124,8 @@ public class Users {
 		this.emailPromotion = emailPromotion;
 		this.emailVerified = emailVerified;
 		this.orders = orders;
+		this.articles = articles;
+		this.comments = comments;
 	}
 
 	
@@ -129,7 +140,7 @@ public class Users {
 			@Size(min = 2, message = "State name should have atleast 2 characters") String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code") int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders) {
+			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -148,6 +159,8 @@ public class Users {
 		this.emailPromotion = emailPromotion;
 		this.emailVerified = emailVerified;
 		this.orders = orders;
+		this.articles = articles;
+		this.comments = comments;
 	}
 
 	public int getId() {
@@ -269,8 +282,14 @@ public class Users {
 	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
 	}
-	
-	
+
+	public List<Articles> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Articles> articles) {
+		this.articles = articles;
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -286,6 +305,15 @@ public class Users {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	@Override
