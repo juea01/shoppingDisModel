@@ -63,6 +63,10 @@ public class Articles {
 	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in articles
 	private List<Comment> comments;
 
+	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in articles
+	@JsonIgnore
+	private List<Reply> replies;
+
 	public Articles() {
 
 	}
@@ -73,7 +77,7 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
 			@Size(min = 10, max = 75, message = "Description should have at least 10 characters and no more than 75 characters") String description,
 			@Size(min = 20, message = "Content should have at least 20 characters and no more than 550 characters") String content,
-			Date publishDate, Date lastEditDate, Users user, List<Comment> comments) {
+			Date publishDate, Date lastEditDate, Users user, List<Comment> comments, List<Reply> replies) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -85,6 +89,7 @@ public class Articles {
 		this.lastEditDate = lastEditDate;
 		this.user = user;
 		this.comments = comments;
+		this.replies = replies;
 	}
 
 	public int getId() {
@@ -165,6 +170,14 @@ public class Articles {
 
 	public void setLastEditDate(Date lastEditDate) {
 		this.lastEditDate = lastEditDate;
+	}
+
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
 	}
 
 	@Override

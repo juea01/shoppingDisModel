@@ -94,42 +94,17 @@ public class Users {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Comment> comments;
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Reply> replies;
 
 	public Users() {
 
 	}
 
-	public Users(int id, @Size(min = 2, message = "Name should have at least two characters") String username,
-			@Size(min = 7, message = "Password should have at least seven characters") String password, int enabled,
-			String role, @Email(message = "Please enter valid email") String email, String phone,
-			@Size(min = 5, message = "Address should have atleast 5 characters") String address,
-			@Size(min = 2, message = "City name should have atleast 2 characters") String city,
-			@Size(min = 2, message = "State name should have atleast 2 characters") String state,
-			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
-			@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code") int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-		this.email = email;
-		this.phone = phone;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.postalCode = postalCode;
-		this.emailPromotion = emailPromotion;
-		this.emailVerified = emailVerified;
-		this.orders = orders;
-		this.articles = articles;
-		this.comments = comments;
-	}
+	
 
-	
-	
 	public Users(int id, @Size(min = 2, message = "First Name should have at least two characters") String firstname,
 			@Size(min = 2, message = "Last Name should have at least two characters") String lastname,
 			@Size(min = 2, message = "Name should have at least two characters") String username,
@@ -140,7 +115,7 @@ public class Users {
 			@Size(min = 2, message = "State name should have atleast 2 characters") String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code") int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments) {
+			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments, List<Reply> reply) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -161,6 +136,7 @@ public class Users {
 		this.orders = orders;
 		this.articles = articles;
 		this.comments = comments;
+		this.replies = reply;
 	}
 
 	public int getId() {
@@ -314,6 +290,14 @@ public class Users {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public List<Reply> getReply() {
+		return replies;
+	}
+
+	public void setReply(List<Reply> reply) {
+		this.replies = reply;
 	}
 
 	@Override
