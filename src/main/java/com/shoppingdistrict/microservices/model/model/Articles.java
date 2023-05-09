@@ -41,13 +41,21 @@ public class Articles {
 	@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters")
 	private String subcategory;
 
-	@Column(name = "description")
-	@Size(min = 10, max = 75, message = "Description should have at least 10 characters and no more than 75 characters")
-	private String description;
+	@Column(name = "introduction")
+	@Size(min = 30, max = 245, message = "Introduction should have at least 30 characters and no more than 245 characters")
+	private String introduction;
 
-	@Column(name = "content")
-	@Size(min = 20, message = "Content should have at least 20 characters and no more than 550 characters")
-	private String content;
+	@Column(name = "first_paragraph")
+	@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters")
+	private String firstParagraph;
+
+	@Column(name = "second_paragraph")
+	@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters")
+	private String secondParagraph;
+
+	@Column(name = "conclusion")
+	@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters")
+	private String conclusion;
 
 	@Column(name = "publishdate")
 	private Date publishDate;
@@ -60,12 +68,17 @@ public class Articles {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Users user;
 
-	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in articles
+	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in
+										// articles
 	private List<Comment> comments;
 
-	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in articles
+	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in
+										// articles
 	@JsonIgnore
 	private List<Reply> replies;
+
+	@OneToMany(mappedBy = "article")
+	private List<ArticleImage> images;
 
 	public Articles() {
 
@@ -75,16 +88,20 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Title should have at least two characters and no more than 35 characters") String title,
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
-			@Size(min = 10, max = 75, message = "Description should have at least 10 characters and no more than 75 characters") String description,
-			@Size(min = 20, message = "Content should have at least 20 characters and no more than 550 characters") String content,
+			@Size(min = 10, max = 245, message = "Introduction should have at least 30 characters and no more than 245 characters") String introduction,
+			@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters") String firstParagraph,
+			@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters") String secondParagraph,
+			@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters") String conclusion,
 			Date publishDate, Date lastEditDate, Users user, List<Comment> comments, List<Reply> replies) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.category = category;
 		this.subcategory = subcategory;
-		this.description = description;
-		this.content = content;
+		this.introduction = introduction;
+		this.firstParagraph = firstParagraph;
+		this.secondParagraph = secondParagraph;
+		this.conclusion = conclusion;
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
 		this.user = user;
@@ -124,20 +141,36 @@ public class Articles {
 		this.subcategory = subcategory;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getIntroduction() {
+		return introduction;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
-	public String getContent() {
-		return content;
+	public String getFirstParagraph() {
+		return firstParagraph;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setFirstParagraph(String firstParagraph) {
+		this.firstParagraph = firstParagraph;
+	}
+
+	public String getSecondParagraph() {
+		return secondParagraph;
+	}
+
+	public void setSecondParagraph(String secondParagraph) {
+		this.secondParagraph = secondParagraph;
+	}
+
+	public String getConclusion() {
+		return conclusion;
+	}
+
+	public void setConclusion(String conclusion) {
+		this.conclusion = conclusion;
 	}
 
 	public Users getUser() {
@@ -178,6 +211,14 @@ public class Articles {
 
 	public void setReplies(List<Reply> replies) {
 		this.replies = replies;
+	}
+
+	public List<ArticleImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ArticleImage> images) {
+		this.images = images;
 	}
 
 	@Override

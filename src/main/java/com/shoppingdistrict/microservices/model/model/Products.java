@@ -36,10 +36,17 @@ public class Products {
 	@Size(min = 5, message = "Description should have at least five characters")
 	private String description;
 
-	@Column(name = "price")
-	@DecimalMin(value="0.0", inclusive=false)
-	@Digits(integer=11, fraction=2)
-	private BigDecimal price;
+	@Column(name = "suitable_audience")
+	@Size(min = 3, message = "Suitable Auidence should have at least three characters")
+	private String suitableAudience;
+	
+	@Column(name = "features")
+	@Size(min = 5, message = "Features should have at least five characters")
+	private String features;
+	
+	@Column(name = "seller_link")
+	@Size(min = 5, message = "Seller Link should have at least five characters")
+	private String sellerLink;
 	
 	@OneToMany(mappedBy = "product") // this way "mappedBy" only create relationship column in Line, not in here
 	@JsonIgnore
@@ -55,32 +62,22 @@ public class Products {
 		
 	}
 
+	
 	public Products(int id, @Size(min = 2, message = "Name should have at least two characters") String name,
 			@Size(min = 2, message = "Category should have at least two characters") String category,
 			@Size(min = 5, message = "Description should have at least five characters") String description,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 11, fraction = 2) BigDecimal price) {
+			List<Line> lines, @Size(min = 3, message = "Suitable Auidence should have at least three characters") String suitableAudience,
+			@Size(min = 5, message = "Features should have at least five characters") String features, @Size(min = 5, message = "Seller Link should have at least five characters") String sellerLink) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.price = price;
-	}
-	
-	
-
-	public Products(int id, @Size(min = 2, message = "Name should have at least two characters") String name,
-			@Size(min = 2, message = "Category should have at least two characters") String category,
-			@Size(min = 5, message = "Description should have at least five characters") String description,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 11, fraction = 2) BigDecimal price,
-			List<Line> lines) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.category = category;
-		this.description = description;
-		this.price = price;
 		this.lines = lines;
+		this.suitableAudience = suitableAudience;
+		this.features = features;
+		this.sellerLink = sellerLink;
+		
 	}
 
 	public int getId() {
@@ -115,13 +112,6 @@ public class Products {
 		this.description = description;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
 	
 	public List<Image> getImages() {
 		return images;
@@ -130,11 +120,43 @@ public class Products {
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
+	
+	
+
+	public String getSuitableAudience() {
+		return suitableAudience;
+	}
+
+
+	public void setSuitableAudience(String suitableAudience) {
+		this.suitableAudience = suitableAudience;
+	}
+
+
+	public String getFeatures() {
+		return features;
+	}
+
+
+	public void setFeatures(String features) {
+		this.features = features;
+	}
+
+
+	public String getSellerLink() {
+		return sellerLink;
+	}
+
+
+	public void setSellerLink(String sellerLink) {
+		this.sellerLink = sellerLink;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", description=" + description
-				+ ", price=" + price + "]";
+				+  "]";
 	}
 	
 	
