@@ -24,15 +24,14 @@ public class Users {
 	@Column(name = "id")
 	private int id;
 
-	
 	@Column(name = "firstname")
 	@Size(min = 2, message = "First Name should have at least two characters")
 	private String firstname;
-	
+
 	@Column(name = "lastname")
 	@Size(min = 2, message = "Last Name should have at least two characters")
 	private String lastname;
-	
+
 	@Column(name = "username")
 	@Size(min = 2, message = "Name should have at least two characters")
 	private String username;
@@ -55,7 +54,6 @@ public class Users {
 	private String phone;
 
 	@Column(name = "address")
-	@Size(min = 5, message = "Address should have atleast 5 characters")
 	private String address;
 
 	@Column(name = "city")
@@ -63,7 +61,6 @@ public class Users {
 	private String city;
 
 	@Column(name = "state")
-	@Size(min = 2, message = "State name should have atleast 2 characters")
 	private String state;
 
 	@Column(name = "country")
@@ -71,7 +68,6 @@ public class Users {
 	private String country;
 
 	@Column(name = "postal_code")
-	@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code")
 	private int postalCode;
 
 	@Column(name = "email_promotion")
@@ -82,19 +78,26 @@ public class Users {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean emailVerified;
 
+	@Column(name = "occupation")
+	@Size(min = 2, message = "Occupation should have at least two characters")
+	private String occupation;
+
+	@Column(name = "gender")
+	@Size(min = 2, message = "Gender should have at least two characters")
+	private String gender;
+
 	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in Order, not in user
 	@JsonIgnore
 	private List<Orders> orders;
-	
+
 	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in article, not in user
 	@JsonIgnore
 	private List<Articles> articles;
-	
-	
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Comment> comments;
-	
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Reply> replies;
@@ -103,19 +106,19 @@ public class Users {
 
 	}
 
-	
-
 	public Users(int id, @Size(min = 2, message = "First Name should have at least two characters") String firstname,
 			@Size(min = 2, message = "Last Name should have at least two characters") String lastname,
-			@Size(min = 2, message = "Name should have at least two characters") String username,
+			@Size(min = 2, message = "User Name should have at least two characters") String username,
 			@Size(min = 7, message = "Password should have at least seven characters") String password, int enabled,
 			String role, @Email(message = "Please enter valid email") String email, String phone,
-			@Size(min = 5, message = "Address should have atleast 5 characters") String address,
+			String address,
 			@Size(min = 2, message = "City name should have atleast 2 characters") String city,
-			@Size(min = 2, message = "State name should have atleast 2 characters") String state,
+			String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
-			@Digits(integer = 4, fraction = 0, message = "Please enter valid Postal code") int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles, List<Comment> comments, List<Reply> reply) {
+			int postalCode,
+			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles,
+			List<Comment> comments, List<Reply> reply, @Size(min = 2, message = "Occupation should have at least two characters") String occupation, 
+			@Size(min = 2, message = "Gender should have at least two characters") String gender) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -137,6 +140,8 @@ public class Users {
 		this.articles = articles;
 		this.comments = comments;
 		this.replies = reply;
+		this.occupation = occupation;
+		this.gender = gender;
 	}
 
 	public int getId() {
@@ -282,7 +287,6 @@ public class Users {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
 
 	public List<Comment> getComments() {
 		return comments;
@@ -291,13 +295,29 @@ public class Users {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	public List<Reply> getReply() {
 		return replies;
 	}
 
 	public void setReply(List<Reply> reply) {
 		this.replies = reply;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	@Override
