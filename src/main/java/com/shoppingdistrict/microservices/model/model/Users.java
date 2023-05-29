@@ -72,7 +72,7 @@ public class Users {
 
 	@Column(name = "email_promotion")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean emailPromotion;
+	private boolean emailSubscription;
 
 	@Column(name = "email_verified")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -124,7 +124,7 @@ public class Users {
 			String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			int postalCode,
-			boolean emailPromotion, boolean emailVerified,  List<Orders> orders, List<Articles> articles,
+			boolean emailSubscription, boolean emailVerified,  List<Orders> orders, List<Articles> articles,
 			List<Comment> comments, List<Reply> reply, @Size(min = 2, message = "Occupation should have at least two characters") String occupation, 
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18, boolean acceptTermsConditions) {
 		super();
@@ -142,7 +142,7 @@ public class Users {
 		this.state = state;
 		this.country = country;
 		this.postalCode = postalCode;
-		this.emailPromotion = emailPromotion;
+		this.emailSubscription = emailSubscription;
 		this.emailVerified = emailVerified;
 		this.orders = orders;
 		this.articles = articles;
@@ -250,12 +250,13 @@ public class Users {
 		this.postalCode = postalCode;
 	}
 
-	public boolean isEmailPromotion() {
-		return emailPromotion;
+	
+	public boolean isEmailSubscription() {
+		return emailSubscription;
 	}
 
-	public void setEmailPromotion(boolean emailPromotion) {
-		this.emailPromotion = emailPromotion;
+	public void setEmailSubscription(boolean emailSubscription) {
+		this.emailSubscription = emailSubscription;
 	}
 
 	public boolean isEmailVerified() {
