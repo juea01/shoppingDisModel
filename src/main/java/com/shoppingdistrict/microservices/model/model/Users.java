@@ -85,6 +85,14 @@ public class Users {
 	@Column(name = "gender")
 	@Size(min = 2, message = "Gender should have at least two characters")
 	private String gender;
+	
+	@Column(name="above_18")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean above18;
+	
+	@Column(name="accept_terms_conditions")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean acceptTermsConditions;
 
 	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in Order, not in user
 	@JsonIgnore
@@ -116,9 +124,9 @@ public class Users {
 			String state,
 			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			int postalCode,
-			boolean emailPromotion, boolean emailVerified, List<Orders> orders, List<Articles> articles,
+			boolean emailPromotion, boolean emailVerified,  List<Orders> orders, List<Articles> articles,
 			List<Comment> comments, List<Reply> reply, @Size(min = 2, message = "Occupation should have at least two characters") String occupation, 
-			@Size(min = 2, message = "Gender should have at least two characters") String gender) {
+			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18, boolean acceptTermsConditions) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -142,6 +150,8 @@ public class Users {
 		this.replies = reply;
 		this.occupation = occupation;
 		this.gender = gender;
+		this.above18 = above18;
+		this.acceptTermsConditions = acceptTermsConditions;
 	}
 
 	public int getId() {
@@ -318,6 +328,24 @@ public class Users {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	
+
+	public boolean isAbove18() {
+		return above18;
+	}
+
+	public void setAbove18(boolean above18) {
+		this.above18 = above18;
+	}
+
+	public boolean isAcceptTermsConditions() {
+		return acceptTermsConditions;
+	}
+
+	public void setAcceptTermsConditions(boolean acceptTermsConditions) {
+		this.acceptTermsConditions = acceptTermsConditions;
 	}
 
 	@Override
