@@ -85,14 +85,20 @@ public class Users {
 	@Column(name = "gender")
 	@Size(min = 2, message = "Gender should have at least two characters")
 	private String gender;
-	
-	@Column(name="above_18")
+
+	@Column(name = "above_18")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean above18;
-	
-	@Column(name="accept_terms_conditions")
+
+	@Column(name = "accept_terms_conditions")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean acceptTermsConditions;
+
+	@Column(name = "email_confirm_code")
+	private String emailConfirmCode;
+
+	@Column(name = "password_reset_code")
+	private String passwordResetCode;
 
 	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in Order, not in user
 	@JsonIgnore
@@ -118,15 +124,14 @@ public class Users {
 			@Size(min = 2, message = "Last Name should have at least two characters") String lastname,
 			@Size(min = 2, message = "User Name should have at least two characters") String username,
 			@Size(min = 7, message = "Password should have at least seven characters") String password, int enabled,
-			String role, @Email(message = "Please enter valid email") String email, String phone,
-			String address,
-			@Size(min = 2, message = "City name should have atleast 2 characters") String city,
-			String state,
-			@Size(min = 2, message = "Country name should have atleast 2 characters") String country,
-			int postalCode,
-			boolean emailSubscription, boolean emailVerified,  List<Orders> orders, List<Articles> articles,
-			List<Comment> comments, List<Reply> reply, @Size(min = 2, message = "Occupation should have at least two characters") String occupation, 
-			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18, boolean acceptTermsConditions) {
+			String role, @Email(message = "Please enter valid email") String email, String phone, String address,
+			@Size(min = 2, message = "City name should have atleast 2 characters") String city, String state,
+			@Size(min = 2, message = "Country name should have atleast 2 characters") String country, int postalCode,
+			boolean emailSubscription, boolean emailVerified, List<Orders> orders, List<Articles> articles,
+			List<Comment> comments, List<Reply> reply,
+			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
+			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
+			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -152,6 +157,8 @@ public class Users {
 		this.gender = gender;
 		this.above18 = above18;
 		this.acceptTermsConditions = acceptTermsConditions;
+		this.passwordResetCode = passwordResetCode;
+		this.emailConfirmCode = emailConfirmCode;
 	}
 
 	public int getId() {
@@ -250,7 +257,6 @@ public class Users {
 		this.postalCode = postalCode;
 	}
 
-	
 	public boolean isEmailSubscription() {
 		return emailSubscription;
 	}
@@ -330,8 +336,6 @@ public class Users {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
-	
 
 	public boolean isAbove18() {
 		return above18;
@@ -347,6 +351,22 @@ public class Users {
 
 	public void setAcceptTermsConditions(boolean acceptTermsConditions) {
 		this.acceptTermsConditions = acceptTermsConditions;
+	}
+
+	public String getEmailConfirmCode() {
+		return emailConfirmCode;
+	}
+
+	public void setEmailConfirmCode(String emailConfirmCode) {
+		this.emailConfirmCode = emailConfirmCode;
+	}
+
+	public String getPasswordResetCode() {
+		return passwordResetCode;
+	}
+
+	public void setPasswordResetCode(String passwordResetCode) {
+		this.passwordResetCode = passwordResetCode;
 	}
 
 	@Override

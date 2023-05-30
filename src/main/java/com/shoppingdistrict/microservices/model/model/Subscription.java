@@ -36,6 +36,9 @@ public class Subscription {
 
 	@Column(name = "enabled")
 	private int enabled;
+	
+	@Column(name = "email_confirm_code")
+	private String emailConfirmCode;
 
 	public Subscription() {
 
@@ -44,7 +47,7 @@ public class Subscription {
 	public Subscription(int id,
 			@Size(min = 2, message = "First Name should have at least two characters") String firstname,
 			@Email(message = "Please enter valid email") String email, boolean emailVerified,
-			boolean acceptTermsConditions, int enabled) {
+			boolean acceptTermsConditions, int enabled, String emailConfirmCode) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -52,6 +55,7 @@ public class Subscription {
 		this.emailVerified = emailVerified;
 		this.acceptTermsConditions = acceptTermsConditions;
 		this.enabled = enabled;
+		this.emailConfirmCode = emailConfirmCode;
 	}
 
 	public int getId() {
@@ -100,6 +104,15 @@ public class Subscription {
 
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+	
+
+	public String getEmailConfirmCode() {
+		return emailConfirmCode;
+	}
+
+	public void setEmailConfirmCode(String emailConfirmCode) {
+		this.emailConfirmCode = emailConfirmCode;
 	}
 
 	@Override
