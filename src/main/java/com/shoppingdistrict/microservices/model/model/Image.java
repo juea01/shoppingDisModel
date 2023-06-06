@@ -27,28 +27,19 @@ public class Image {
 	private int id;
 
 	@Column(name = "name")
-	private String name; 
-	
+	private String name;
+
 	@Column(name = "location")
-	private String location; 
-	
-	
-	
+	private String location;
+
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling image and product indefinitely
 	@JoinColumn(name = "product_id")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Products product;
 
-	
-
 	public Image() {
 
 	}
-
-	
-
-	
-
 
 	public Image(int id, String name, String location, Products product) {
 		super();
@@ -58,75 +49,32 @@ public class Image {
 		this.product = product;
 	}
 
-
-
-
-
-
 	public int getId() {
 		return id;
 	}
-
-
-
-
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
-
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
-
-
-
 	public String getLocation() {
 		return location;
 	}
-
-
-
-
-
 
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
-
-
-
-
-
 	public void setProduct(Products product) {
 		this.product = product;
 	}
-
-
-
-
-
-
-	
-	
 
 }

@@ -29,55 +29,39 @@ public class Comment {
 	@Column(name = "id")
 	private int id;
 
-	
-
 	@Column(name = "description")
 	@Size(min = 10, max = 150, message = "Description should have at least 10 characters and no more than 130 characters")
 	private String description;
 
-	
-
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and comment indefinitely
 	@JoinColumn(name = "user_id")
 	private Users user;
-	
-	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling article and comment indefinitely
+
+	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling article and comment
+										// indefinitely
 	@JoinColumn(name = "article_id")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Articles article;
-	
-	@Column(name = "commentdate")
-	private Date commentDate;
 
-	@Column(name = "lasteditdate")
-	private Date lastEditDate;
-	
 	@OneToMany(mappedBy = "comment")
 	@JsonIgnore
 	private List<Reply> replies;
 
-	
-	
 	public Comment() {
 
 	}
 
-	
-	
 	public Comment(int id,
 			@Size(min = 10, max = 150, message = "Description should have at least 10 characters and no more than 130 characters") String description,
-			Users user, Articles article, List<Reply> replies, Date commentDate, Date lastEditDate) {
+			Users user, Articles article, List<Reply> replies) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.user = user;
 		this.article = article;
 		this.replies = replies;
-		this.commentDate = commentDate;
-		this.lastEditDate = lastEditDate;
+
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -86,80 +70,42 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
 	public String getDescription() {
 		return description;
 	}
 
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
 	public List<Reply> getReply() {
 		return replies;
 	}
-	
+
 	public void setReply(List<Reply> replies) {
 		this.replies = replies;
 	}
-
-
 
 	public Users getUser() {
 		return user;
 	}
 
-
-
 	public void setUser(Users user) {
 		this.user = user;
 	}
-
-
 
 	public Articles getArticle() {
 		return article;
 	}
 
-
-
 	public void setArticle(Articles article) {
 		this.article = article;
 	}
 
-
-
-	public Date getCommentDate() {
-		return commentDate;
-	}
-
-
-
-	public void setCommentDate(Date commentDate) {
-		this.commentDate = commentDate;
-	}
-
-
-
-	public Date getLastEditDate() {
-		return lastEditDate;
-	}
-
-
-
-	public void setLastEditDate(Date lastEditDate) {
-		this.lastEditDate = lastEditDate;
-	}
-
-
-
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", description=" + description  +"]";
+		return "Article [id=" + id + ", description=" + description + "]";
 	}
 
 }

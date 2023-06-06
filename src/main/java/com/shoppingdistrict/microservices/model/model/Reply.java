@@ -11,14 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -49,27 +42,19 @@ public class Reply {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Articles article;
 
-	@Column(name = "commentdate")
-	private Date commentDate;
-
-	@Column(name = "lasteditdate")
-	private Date lastEditDate;
-
 	public Reply() {
 
 	}
 
 	public Reply(int id,
 			@Size(min = 10, max = 150, message = "Description should have at least 10 characters and no more than 130 characters") String description,
-			Users user, Comment comment, Articles article, Date commentDate, Date lastEditDate) {
+			Users user, Comment comment, Articles article) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.user = user;
 		this.comment = comment;
 		this.article = article;
-		this.commentDate = commentDate;
-		this.lastEditDate = lastEditDate;
 	}
 
 	public int getId() {
@@ -102,22 +87,6 @@ public class Reply {
 
 	public void setComment(Comment comment) {
 		this.comment = comment;
-	}
-
-	public Date getCommentDate() {
-		return commentDate;
-	}
-
-	public void setCommentDate(Date commentDate) {
-		this.commentDate = commentDate;
-	}
-
-	public Date getLastEditDate() {
-		return lastEditDate;
-	}
-
-	public void setLastEditDate(Date lastEditDate) {
-		this.lastEditDate = lastEditDate;
 	}
 
 	public Articles getArticle() {

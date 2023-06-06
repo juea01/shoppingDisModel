@@ -1,6 +1,7 @@
 package com.shoppingdistrict.microservices.model.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -57,11 +58,11 @@ public class Articles {
 	@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters")
 	private String conclusion;
 
-	@Column(name = "publishdate")
-	private Date publishDate;
+	@Column(name = "publishdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp publishDate;
 
-	@Column(name = "lasteditdate")
-	private Date lastEditDate;
+	@Column(name = "lasteditdate",  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	private Timestamp lastEditDate;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and article indefinitely
 	@JoinColumn(name = "user_id")
@@ -92,7 +93,7 @@ public class Articles {
 			@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters") String firstParagraph,
 			@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters") String secondParagraph,
 			@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters") String conclusion,
-			Date publishDate, Date lastEditDate, Users user, List<Comment> comments, List<Reply> replies) {
+			Timestamp publishDate, Timestamp lastEditDate, Users user, List<Comment> comments, List<Reply> replies) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -189,19 +190,19 @@ public class Articles {
 		this.comments = comments;
 	}
 
-	public Date getPublishDate() {
+	public Timestamp getPublishDate() {
 		return publishDate;
 	}
 
-	public Date getLastEditDate() {
+	public Timestamp getLastEditDate() {
 		return lastEditDate;
 	}
 
-	public void setPublishDate(Date publishDate) {
+	public void setPublishDate(Timestamp publishDate) {
 		this.publishDate = publishDate;
 	}
 
-	public void setLastEditDate(Date lastEditDate) {
+	public void setLastEditDate(Timestamp lastEditDate) {
 		this.lastEditDate = lastEditDate;
 	}
 
