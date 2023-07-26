@@ -61,7 +61,7 @@ public class Articles {
 	@Column(name = "publishdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp publishDate;
 
-	@Column(name = "lasteditdate",  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "lasteditdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Timestamp lastEditDate;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and article indefinitely
@@ -81,6 +81,11 @@ public class Articles {
 	@OneToMany(mappedBy = "article")
 	private List<ArticleImage> images;
 
+	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in question, not in
+										// articles
+	@JsonIgnore
+	private List<Question> questions;
+
 	public Articles() {
 
 	}
@@ -93,7 +98,8 @@ public class Articles {
 			@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters") String firstParagraph,
 			@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters") String secondParagraph,
 			@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters") String conclusion,
-			Timestamp publishDate, Timestamp lastEditDate, Users user, List<Comment> comments, List<Reply> replies) {
+			Timestamp publishDate, Timestamp lastEditDate, Users user, List<Comment> comments, List<Reply> replies,
+			List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -108,6 +114,7 @@ public class Articles {
 		this.user = user;
 		this.comments = comments;
 		this.replies = replies;
+		this.questions = questions;
 	}
 
 	public int getId() {
@@ -220,6 +227,14 @@ public class Articles {
 
 	public void setImages(List<ArticleImage> images) {
 		this.images = images;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	@Override
