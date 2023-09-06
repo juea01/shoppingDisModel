@@ -38,7 +38,7 @@ public class QuestionOption {
 
 	@Column(name = "correct_option")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isCorrectOption;
+	private boolean correctOption;
 
 	public QuestionOption() {
 
@@ -47,13 +47,13 @@ public class QuestionOption {
 	public QuestionOption(int id,
 			@Size(min = 3, max = 250, message = "Content should have at least 3 characters and no more than 250 characters") String content,
 			@Size(max = 250, message = "Explaination should be no more than 250 characters") String explanation,
-			Question question, boolean isCorrectOption) {
+			Question question, boolean correctOption) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.explanation = explanation;
 		this.question = question;
-		this.isCorrectOption = isCorrectOption;
+		this.correctOption = correctOption;
 	}
 
 	public int getId() {
@@ -89,11 +89,11 @@ public class QuestionOption {
 	}
 
 	public boolean isCorrectOption() {
-		return isCorrectOption;
+		return correctOption;
 	}
 
-	public void setCorrectOption(boolean isCorrectOption) {
-		this.isCorrectOption = isCorrectOption;
+	public void setCorrectOption(boolean correctOption) {
+		this.correctOption = correctOption;
 	}
 
 }

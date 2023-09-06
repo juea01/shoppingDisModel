@@ -2,6 +2,7 @@ package com.shoppingdistrict.microservices.model.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Subject {
 	private String category;
 
 	@Column(name = "sub_category")
-	@Size(min = 3, max = 30, message = "Sub Category should have at least 3 characters and no more than 30 characters")
+	@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters")
 	private String subCategory;
 
 	@Column(name = "level")
@@ -43,11 +44,12 @@ public class Subject {
 
 	@Column(name = "premium")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isPremium;
+	private boolean premium;
 
-	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in Question, not
-										// here
-	@JsonIgnore
+	// this way "mappedBy" only create relationship column in Question, not
+	// here, CascadeType.ALL mean also save child object (question)
+	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL) 
+	//@JsonIgnore   this is commented out because child question object/s need to be saved when Subject object is saved for first time.
 	private List<Question> questions;
 
 	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in UserSubject, not
@@ -61,17 +63,17 @@ public class Subject {
 
 	public Subject(int id,
 			@Size(min = 3, max = 30, message = "Category should have at least 3 characters and no more than 30 characters") String category,
-			@Size(min = 3, max = 30, message = "Sub Category should have at least 3 characters and no more than 30 characters") String subCategory,
+			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
-			boolean isPremium, List<Question> questions, List<UserSubject> userSubjects) {
+			boolean premium, List<Question> questions, List<UserSubject> userSubjects) {
 		super();
 		this.id = id;
 		this.category = category;
 		this.subCategory = subCategory;
 		this.level = level;
 		this.title = title;
-		this.isPremium = isPremium;
+		this.premium = premium;
 		this.questions = questions;
 		this.userSubjects = userSubjects;
 	}
@@ -125,11 +127,11 @@ public class Subject {
 	}
 
 	public boolean isPremium() {
-		return isPremium;
+		return premium;
 	}
 
-	public void setPremium(boolean isPremium) {
-		this.isPremium = isPremium;
+	public void setPremium(boolean premium) {
+		this.premium = premium;
 	}
 
 	public List<UserSubject> getUserSubjects() {

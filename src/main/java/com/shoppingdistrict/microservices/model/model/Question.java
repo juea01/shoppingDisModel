@@ -2,6 +2,7 @@ package com.shoppingdistrict.microservices.model.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,8 +29,9 @@ public class Question {
 	@Size(min = 3, max = 250, message = "Content should have at least 3 characters and no more than 250 characters")
 	private String content;
 
-	@OneToMany(mappedBy = "question") // this way "mappedBy" only create relationship column in Question-Option, not
-										// here
+	// this way "mappedBy" only create relationship column in Question-Option, not
+	// here, CascadeType.ALL mean also save child object (option)
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL) 
 	private List<QuestionOption> options;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling question and articles
