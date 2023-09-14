@@ -66,8 +66,7 @@ public class Articles {
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and article indefinitely
 	@JoinColumn(name = "user_id")
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private Users user;
+	private Users users;
 
 	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in
 										// articles
@@ -111,7 +110,7 @@ public class Articles {
 		this.conclusion = conclusion;
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
-		this.user = user;
+		this.users = user;
 		this.comments = comments;
 		this.replies = replies;
 		this.questions = questions;
@@ -182,11 +181,11 @@ public class Articles {
 	}
 
 	public Users getUser() {
-		return user;
+		return users;
 	}
 
 	public void setUser(Users user) {
-		this.user = user;
+		this.users = user;
 	}
 
 	public List<Comment> getComments() {

@@ -104,7 +104,7 @@ public class Users {
 	@JsonIgnore
 	private List<Orders> orders;
 
-	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in article, not in user
+	@OneToMany(mappedBy = "users") // this way "mappedBy" only create relationship column in article, not in user
 	@JsonIgnore
 	private List<Articles> articles;
 
