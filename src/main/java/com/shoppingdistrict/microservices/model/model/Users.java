@@ -119,6 +119,10 @@ public class Users {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<UserSubject> userSubjects;
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Subject> subjects;
 
 	public Users() {
 
@@ -135,7 +139,8 @@ public class Users {
 			List<Comment> comments, List<Reply> reply,
 			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
-			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode, List<UserSubject> userSubjects) {
+			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode, 
+			List<UserSubject> userSubjects, List<Subject> subjects) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -164,6 +169,7 @@ public class Users {
 		this.passwordResetCode = passwordResetCode;
 		this.emailConfirmCode = emailConfirmCode;
 		this.userSubjects = userSubjects;
+		this.subjects = subjects;
 	}
 
 	public int getId() {

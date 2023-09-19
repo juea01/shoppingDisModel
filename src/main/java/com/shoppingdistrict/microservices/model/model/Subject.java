@@ -46,16 +46,21 @@ public class Subject {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean premium;
 
-	// this way "mappedBy" only create relationship column in Question, not
-	// here, CascadeType.ALL mean also save child object (question)
+	/**
+	 * This way "mappedBy" only create relationship column in Question, not
+	 * here, CascadeType.ALL mean also save child object (question)
+	 */
 	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL) 
 	//@JsonIgnore   this is commented out because child question object/s need to be saved when Subject object is saved for first time.
 	private List<Question> questions;
 
-	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in UserSubject, not
-	// here
+	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in UserSubject, not here
 	@JsonIgnore
 	private List<UserSubject> userSubjects;
+	
+	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and subject indefinitely
+	@JoinColumn(name = "author_id")
+	private Users user;
 
 	public Subject() {
 
@@ -66,7 +71,7 @@ public class Subject {
 			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
-			boolean premium, List<Question> questions, List<UserSubject> userSubjects) {
+			boolean premium, List<Question> questions, List<UserSubject> userSubjects, Users user) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -76,6 +81,7 @@ public class Subject {
 		this.premium = premium;
 		this.questions = questions;
 		this.userSubjects = userSubjects;
+		this.user = user;
 	}
 
 	public int getId() {
@@ -142,4 +148,13 @@ public class Subject {
 		this.userSubjects = userSubjects;
 	}
 
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	
+	
 }
