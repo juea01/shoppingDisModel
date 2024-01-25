@@ -40,7 +40,7 @@ public class PaidSubscription {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean activeSubscription;
 	
-	@Column(name = "last_paidDate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "paymentdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Timestamp lastPaidDate;
 
 	public PaidSubscription() {
