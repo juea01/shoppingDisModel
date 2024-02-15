@@ -42,13 +42,16 @@ public class PaidSubscription {
 	
 	@Column(name = "paymentdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Timestamp lastPaidDate;
+	
+	@Column(name = "expire_date")
+	private Timestamp expiryDate;	
 
 	public PaidSubscription() {
 		
 	}
 	
 	public PaidSubscription(int id, Users user, String thirdPartyUserId, String subscriptionType, String comment,
-			boolean activeSubscription, Timestamp lastPaidDate) {
+			boolean activeSubscription, Timestamp lastPaidDate, Timestamp expiryDate) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -57,6 +60,7 @@ public class PaidSubscription {
 		this.comment = comment;
 		this.activeSubscription = activeSubscription;
 		this.lastPaidDate = lastPaidDate;
+		this.expiryDate = expiryDate;
 	}
 
 	public int getId() {
@@ -113,6 +117,14 @@ public class PaidSubscription {
 
 	public void setLastPaidDate(Timestamp lastPaidDate) {
 		this.lastPaidDate = lastPaidDate;
+	}
+
+	public Timestamp getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Timestamp expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 	
 	
