@@ -43,20 +43,20 @@ public class Articles {
 	private String subcategory;
 
 	@Column(name = "introduction")
-	@Size(min = 30, max = 245, message = "Introduction should have at least 30 characters and no more than 245 characters")
 	private String introduction;
 
 	@Column(name = "first_paragraph")
-	@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters")
 	private String firstParagraph;
 
 	@Column(name = "second_paragraph")
-	@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters")
 	private String secondParagraph;
 
 	@Column(name = "conclusion")
-	@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters")
 	private String conclusion;
+
+	@Column(name = "is_publish")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isPublish;
 
 	@Column(name = "publishdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp publishDate;
@@ -93,10 +93,7 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Title should have at least two characters and no more than 35 characters") String title,
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
-			@Size(min = 10, max = 245, message = "Introduction should have at least 30 characters and no more than 245 characters") String introduction,
-			@Size(min = 200, max = 395, message = "First paragraph should have at least 200 characters and no more than 395 characters") String firstParagraph,
-			@Size(min = 200, max = 395, message = "Second paragraph should have at least 200 characters and no more than 395 characters") String secondParagraph,
-			@Size(min = 200, max = 395, message = "Conclusion should have at least 200 characters and no more than 395 characters") String conclusion,
+			String introduction, String firstParagraph, String secondParagraph, String conclusion, boolean isPublish,
 			Timestamp publishDate, Timestamp lastEditDate, Users user, List<Comment> comments, List<Reply> replies,
 			List<Question> questions) {
 		super();
@@ -108,6 +105,7 @@ public class Articles {
 		this.firstParagraph = firstParagraph;
 		this.secondParagraph = secondParagraph;
 		this.conclusion = conclusion;
+		this.isPublish = isPublish;
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
 		this.users = user;
@@ -178,6 +176,14 @@ public class Articles {
 
 	public void setConclusion(String conclusion) {
 		this.conclusion = conclusion;
+	}
+
+	public boolean isPublish() {
+		return isPublish;
+	}
+
+	public void setPublish(boolean isPublish) {
+		this.isPublish = isPublish;
 	}
 
 	public Users getUser() {
