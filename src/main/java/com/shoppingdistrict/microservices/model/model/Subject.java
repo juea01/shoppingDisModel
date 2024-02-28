@@ -46,18 +46,23 @@ public class Subject {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean premium;
 
+	@Column(name = "is_publish")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean isPublish;
+
 	/**
-	 * This way "mappedBy" only create relationship column in Question, not
-	 * here, CascadeType.ALL mean also save child object (question)
+	 * This way "mappedBy" only create relationship column in Question, not here,
+	 * CascadeType.ALL mean also save child object (question)
 	 */
-	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL) 
-	//@JsonIgnore   this is commented out because child question object/s need to be saved when Subject object is saved for first time.
+	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+	// @JsonIgnore this is commented out because child question object/s need to be
+	// saved when Subject object is saved for first time.
 	private List<Question> questions;
 
 	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in UserSubject, not here
 	@JsonIgnore
 	private List<UserSubject> userSubjects;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and subject indefinitely
 	@JoinColumn(name = "author_id")
 	private Users user;
@@ -71,7 +76,7 @@ public class Subject {
 			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
-			boolean premium, List<Question> questions, List<UserSubject> userSubjects, Users user) {
+			boolean premium, boolean isPublish, List<Question> questions, List<UserSubject> userSubjects, Users user) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -79,6 +84,7 @@ public class Subject {
 		this.level = level;
 		this.title = title;
 		this.premium = premium;
+		this.isPublish = isPublish;
 		this.questions = questions;
 		this.userSubjects = userSubjects;
 		this.user = user;
@@ -140,6 +146,14 @@ public class Subject {
 		this.premium = premium;
 	}
 
+	public boolean isPublish() {
+		return isPublish;
+	}
+
+	public void setPublish(boolean isPublish) {
+		this.isPublish = isPublish;
+	}
+
 	public List<UserSubject> getUserSubjects() {
 		return userSubjects;
 	}
@@ -155,6 +169,5 @@ public class Subject {
 	public void setUser(Users user) {
 		this.user = user;
 	}
-	
-	
+
 }
