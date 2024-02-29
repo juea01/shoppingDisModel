@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -68,6 +69,14 @@ public class Articles {
 	@JoinColumn(name = "user_id")
 	private Users users;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "previous_article_id")
+	private Articles previousArticle;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "next_article_id")
+	private Articles nextArticle;
+
 	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in comment, not in
 										// articles
 	private List<Comment> comments;
@@ -94,8 +103,8 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
 			String introduction, String firstParagraph, String secondParagraph, String conclusion, boolean isPublish,
-			Timestamp publishDate, Timestamp lastEditDate, Users user, List<Comment> comments, List<Reply> replies,
-			List<Question> questions) {
+			Timestamp publishDate, Timestamp lastEditDate, Users user, Articles previousArticle, Articles nextArticle,
+			List<Comment> comments, List<Reply> replies, List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -109,6 +118,8 @@ public class Articles {
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
 		this.users = user;
+		this.previousArticle = previousArticle;
+		this.nextArticle = nextArticle;
 		this.comments = comments;
 		this.replies = replies;
 		this.questions = questions;
@@ -192,6 +203,22 @@ public class Articles {
 
 	public void setUser(Users user) {
 		this.users = user;
+	}
+
+	public Articles getPreviousArticle() {
+		return previousArticle;
+	}
+
+	public void setPreviousArticle(Articles previousArticle) {
+		this.previousArticle = previousArticle;
+	}
+
+	public Articles getNextArticle() {
+		return nextArticle;
+	}
+
+	public void setNextArticle(Articles nextArticle) {
+		this.nextArticle = nextArticle;
 	}
 
 	public List<Comment> getComments() {
