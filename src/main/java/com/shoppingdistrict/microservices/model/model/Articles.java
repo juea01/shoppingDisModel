@@ -55,6 +55,10 @@ public class Articles {
 	@Column(name = "conclusion")
 	private String conclusion;
 
+	@Column(name = "premium")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean premium;
+
 	@Column(name = "is_publish")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isPublish;
@@ -102,9 +106,9 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Title should have at least two characters and no more than 35 characters") String title,
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
-			String introduction, String firstParagraph, String secondParagraph, String conclusion, boolean isPublish,
-			Timestamp publishDate, Timestamp lastEditDate, Users user, Articles previousArticle, Articles nextArticle,
-			List<Comment> comments, List<Reply> replies, List<Question> questions) {
+			String introduction, String firstParagraph, String secondParagraph, String conclusion, boolean premium,
+			boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user, Articles previousArticle,
+			Articles nextArticle, List<Comment> comments, List<Reply> replies, List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -114,6 +118,7 @@ public class Articles {
 		this.firstParagraph = firstParagraph;
 		this.secondParagraph = secondParagraph;
 		this.conclusion = conclusion;
+		this.premium = premium;
 		this.isPublish = isPublish;
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
@@ -183,6 +188,14 @@ public class Articles {
 
 	public String getConclusion() {
 		return conclusion;
+	}
+
+	public boolean isPremium() {
+		return premium;
+	}
+
+	public void setPremium(boolean premium) {
+		this.premium = premium;
 	}
 
 	public void setConclusion(String conclusion) {
