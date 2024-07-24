@@ -55,6 +55,12 @@ public class Articles {
 	@Column(name = "conclusion")
 	private String conclusion;
 
+	@Column(name = "lecture_type")
+	private String lectureType;
+
+	@Column(name = "link")
+	private String link;
+
 	@Column(name = "premium")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean premium;
@@ -106,9 +112,10 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Title should have at least two characters and no more than 35 characters") String title,
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
-			String introduction, String firstParagraph, String secondParagraph, String conclusion, boolean premium,
-			boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user, Articles previousArticle,
-			Articles nextArticle, List<Comment> comments, List<Reply> replies, List<Question> questions) {
+			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType,
+			String link, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
+			Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
+			List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -118,6 +125,8 @@ public class Articles {
 		this.firstParagraph = firstParagraph;
 		this.secondParagraph = secondParagraph;
 		this.conclusion = conclusion;
+		this.lectureType = lectureType;
+		this.link = link;
 		this.premium = premium;
 		this.isPublish = isPublish;
 		this.publishDate = publishDate;
@@ -200,6 +209,22 @@ public class Articles {
 
 	public void setConclusion(String conclusion) {
 		this.conclusion = conclusion;
+	}
+
+	public String getLectureType() {
+		return lectureType;
+	}
+
+	public void setLectureType(String lectureType) {
+		this.lectureType = lectureType;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public boolean isPublish() {
