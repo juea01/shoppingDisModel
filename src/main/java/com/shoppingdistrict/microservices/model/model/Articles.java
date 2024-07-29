@@ -60,6 +60,9 @@ public class Articles {
 
 	@Column(name = "link")
 	private String link;
+	
+	@Column(name = "rec_test")
+	private String recTest;
 
 	@Column(name = "premium")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -113,7 +116,7 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
 			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType,
-			String link, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
+			String link, String recTest, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
 			Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
 			List<Question> questions) {
 		super();
@@ -127,6 +130,7 @@ public class Articles {
 		this.conclusion = conclusion;
 		this.lectureType = lectureType;
 		this.link = link;
+		this.recTest = recTest;
 		this.premium = premium;
 		this.isPublish = isPublish;
 		this.publishDate = publishDate;
@@ -225,6 +229,14 @@ public class Articles {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+	
+	public String getRecTest() {
+		return recTest;
+	}
+
+	public void setRecTest(String recTest) {
+		this.recTest = recTest;
 	}
 
 	public boolean isPublish() {
