@@ -1,5 +1,6 @@
 package com.shoppingdistrict.microservices.model.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -115,18 +116,25 @@ public class Users {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Reply> replies;
-	
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<UserSubject> userSubjects;
-	
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Subject> subjects;
-	
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<PaidSubscription> paidSubscriptions;
+
+	@Column(name = "question_count")
+	private int questionCount;
+	
+	@Column(name = "que_count_reset_date")
+	private Timestamp queCountResetDate;
+	
 
 	public Users() {
 
@@ -136,15 +144,15 @@ public class Users {
 			@Size(min = 2, message = "Last Name should have at least two characters") String lastname,
 			@Size(min = 2, message = "User Name should have at least two characters") String username,
 			@Size(min = 7, message = "Password should have at least seven characters") String password, int enabled,
-			String role, @Email(message = "Please enter valid email") String email, String phone, String address,
-			@Size(min = 2, message = "City name should have atleast 2 characters") String city, String state,
-			@Size(min = 2, message = "Country name should have atleast 2 characters") String country, int postalCode,
-			boolean emailSubscription, boolean emailVerified, List<Orders> orders, List<Articles> articles,
-			List<Comment> comments, List<Reply> reply,
+			String role, int questionCount, @Email(message = "Please enter valid email") String email, String phone,
+			String address, @Size(min = 2, message = "City name should have atleast 2 characters") String city,
+			String state, @Size(min = 2, message = "Country name should have atleast 2 characters") String country,
+			int postalCode, boolean emailSubscription, boolean emailVerified, List<Orders> orders,
+			List<Articles> articles, List<Comment> comments, List<Reply> reply,
 			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
-			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode, 
-			List<UserSubject> userSubjects, List<Subject> subjects, List<PaidSubscription> paidSubscriptions) {
+			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode,
+			List<UserSubject> userSubjects, List<Subject> subjects, List<PaidSubscription> paidSubscriptions, Timestamp queCountResetDate) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -153,6 +161,7 @@ public class Users {
 		this.password = password;
 		this.enabled = enabled;
 		this.role = role;
+		this.questionCount = questionCount;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
@@ -175,6 +184,7 @@ public class Users {
 		this.userSubjects = userSubjects;
 		this.subjects = subjects;
 		this.paidSubscriptions = paidSubscriptions;
+		this.queCountResetDate = queCountResetDate;
 	}
 
 	public int getId() {
@@ -384,9 +394,14 @@ public class Users {
 	public void setPasswordResetCode(String passwordResetCode) {
 		this.passwordResetCode = passwordResetCode;
 	}
-	
-	
-	
+
+	public int getQuestionCount() {
+		return questionCount;
+	}
+
+	public void setQuestionCount(int questionCount) {
+		this.questionCount = questionCount;
+	}
 
 	@Override
 	public String toString() {
