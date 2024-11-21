@@ -30,11 +30,11 @@ public class Testcase {
 	@Size(min = 3, max = 30, message = "Description should have at least 3 characters and no more than 30 characters")
 	private String description;
 	
-	@Column(name = "expectedOutput")
+	@Column(name = "expected_output")
 	@Size( max = 10, message = "Expected output should have no more than 10 characters")
 	private String expectedOutput;
 	
-	@Column(name = "expectedOutputType")
+	@Column(name = "expected_output_type")
 	@Size(max = 10, message = "Expected output type should have no more than 10 characters")
 	private String expectedOutputType;
 

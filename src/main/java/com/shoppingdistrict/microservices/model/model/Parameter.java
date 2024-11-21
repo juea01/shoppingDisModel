@@ -26,7 +26,7 @@ public class Parameter {
 	@Size(max = 15, message = "Type should be no more than 15 characters")
 	private String type;
 	
-	@Column(name = "inputValue")
+	@Column(name = "input_value")
 	@Size( max = 30, message = "Input value should be no more than 30 characters")
 	private String inputValue;
 	

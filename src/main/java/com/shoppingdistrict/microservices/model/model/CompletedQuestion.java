@@ -32,16 +32,21 @@ public class CompletedQuestion {
 	@JoinColumn(name = "user_subject_id")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private UserSubject userSubject;
+	
+	@Column(name = "submitted_code")
+	@Size(max = 900, message = "Submitted Code should be no more than 900 characters")
+	private String submittedCode;
 
 	public CompletedQuestion() {
 
 	}
 
-	public CompletedQuestion(int id, Question question, UserSubject userSubject) {
+	public CompletedQuestion(int id, Question question, UserSubject userSubject, String submittedCode) {
 		super();
 		this.id = id;
 		this.question = question;
 		this.userSubject = userSubject;
+		this.submittedCode = submittedCode;
 	}
 
 	public int getId() {
@@ -67,6 +72,15 @@ public class CompletedQuestion {
 	public void setUserSubject(UserSubject userSubject) {
 		this.userSubject = userSubject;
 	}
+
+	public String getSubmittedCode() {
+		return submittedCode;
+	}
+
+	public void setSubmittedCode(String submittedCode) {
+		this.submittedCode = submittedCode;
+	}
+	
 	
 	
 
