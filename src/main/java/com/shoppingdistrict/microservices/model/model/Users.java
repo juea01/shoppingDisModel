@@ -108,6 +108,9 @@ public class Users {
 	@OneToMany(mappedBy = "users") // this way "mappedBy" only create relationship column in article, not in user
 	@JsonIgnore
 	private List<Articles> articles;
+	
+	@OneToMany(mappedBy = "users") // this way "mappedBy" only create relationship column in article, not in user
+	private List<UserPrivacySetting> privacySettings;
 
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
@@ -118,7 +121,6 @@ public class Users {
 	private List<Reply> replies;
 
 	@OneToMany(mappedBy = "user")
-	@JsonIgnore
 	private List<UserSubject> userSubjects;
 
 	@OneToMany(mappedBy = "user")
@@ -148,7 +150,7 @@ public class Users {
 			String address, @Size(min = 2, message = "City name should have atleast 2 characters") String city,
 			String state, @Size(min = 2, message = "Country name should have atleast 2 characters") String country,
 			int postalCode, boolean emailSubscription, boolean emailVerified, List<Orders> orders,
-			List<Articles> articles, List<Comment> comments, List<Reply> reply,
+			List<Articles> articles, List<UserPrivacySetting> privacySettings, List<Comment> comments, List<Reply> reply,
 			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
 			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode,
@@ -173,6 +175,7 @@ public class Users {
 		this.emailVerified = emailVerified;
 		this.orders = orders;
 		this.articles = articles;
+		this.privacySettings = privacySettings;
 		this.comments = comments;
 		this.replies = reply;
 		this.occupation = occupation;
@@ -314,6 +317,15 @@ public class Users {
 	public void setArticles(List<Articles> articles) {
 		this.articles = articles;
 	}
+	
+
+	public List<UserPrivacySetting> getPrivacySettings() {
+		return privacySettings;
+	}
+
+	public void setPrivacySettings(List<UserPrivacySetting> privacySettings) {
+		this.privacySettings = privacySettings;
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -401,6 +413,15 @@ public class Users {
 
 	public void setQuestionCount(int questionCount) {
 		this.questionCount = questionCount;
+	}
+	
+
+	public List<UserSubject> getUserSubjects() {
+		return userSubjects;
+	}
+
+	public void setUserSubjects(List<UserSubject> userSubjects) {
+		this.userSubjects = userSubjects;
 	}
 
 	@Override

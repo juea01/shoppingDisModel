@@ -41,6 +41,10 @@ public class Subject {
 	@Column(name = "title")
 	@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters")
 	private String title;
+	
+	@Column(name = "description")
+	@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters")
+	private String description;
 
 	@Column(name = "premium")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -76,6 +80,7 @@ public class Subject {
 			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
+			@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters") String description,
 			boolean premium, boolean isPublish, List<Question> questions, List<UserSubject> userSubjects, Users user) {
 		super();
 		this.id = id;
@@ -83,6 +88,7 @@ public class Subject {
 		this.subCategory = subCategory;
 		this.level = level;
 		this.title = title;
+		this.description = description;
 		this.premium = premium;
 		this.isPublish = isPublish;
 		this.questions = questions;
@@ -169,5 +175,15 @@ public class Subject {
 	public void setUser(Users user) {
 		this.user = user;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 
 }

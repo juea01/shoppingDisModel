@@ -1,5 +1,6 @@
 package com.shoppingdistrict.microservices.model.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -44,6 +45,13 @@ public class UserSubject {
 	@Column(name = "completed ")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean completed;
+	
+	@Column(name = "show_on_profile")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean showOnProfile;
+	
+	@Column(name = "completed_date", columnDefinition = "TIMESTAMP DEFAULT NULL")
+	private Timestamp completedDate;
 
 	@OneToMany(mappedBy = "userSubject") // this way "mappedBy" only create relationship column in Question-Option, not
 	// here
@@ -53,7 +61,8 @@ public class UserSubject {
 
 	}
 
-	public UserSubject(int id, int numCompletedQue, int enabled, Users user, Subject subject, boolean completed, List<CompletedQuestion> completedQuestions) {
+	public UserSubject(int id, int numCompletedQue, int enabled, Users user, Subject subject, boolean completed, 
+			Timestamp completedDate, boolean showOnProfile, List<CompletedQuestion> completedQuestions) {
 		super();
 		this.id = id;
 		this.numCompletedQue = numCompletedQue;
@@ -61,6 +70,8 @@ public class UserSubject {
 		this.user = user;
 		this.subject = subject;
 		this.completed = completed;
+		this.completedDate = completedDate;
+		this.showOnProfile = showOnProfile;
 		this.completedQuestions = completedQuestions;
 	}
 
@@ -118,6 +129,22 @@ public class UserSubject {
 
 	public void setCompletedQuestions(List<CompletedQuestion> completedQuestions) {
 		this.completedQuestions = completedQuestions;
+	}
+
+	public boolean isShowOnProfile() {
+		return showOnProfile;
+	}
+
+	public void setShowOnProfile(boolean showOnProfile) {
+		this.showOnProfile = showOnProfile;
+	}
+
+	public Timestamp getCompletedDate() {
+		return completedDate;
+	}
+
+	public void setCompletedDate(Timestamp completedDate) {
+		this.completedDate = completedDate;
 	}
 	
 	
