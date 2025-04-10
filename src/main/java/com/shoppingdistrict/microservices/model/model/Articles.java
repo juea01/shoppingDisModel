@@ -42,6 +42,9 @@ public class Articles {
 	@Column(name = "sub_category")
 	@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters")
 	private String subcategory;
+	
+	@Column(name = "level")
+	private int level;
 
 	@Column(name = "introduction")
 	private String introduction;
@@ -115,6 +118,7 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Title should have at least two characters and no more than 35 characters") String title,
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
+			int level,
 			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType,
 			String link, String recTest, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
 			Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
@@ -124,6 +128,7 @@ public class Articles {
 		this.title = title;
 		this.category = category;
 		this.subcategory = subcategory;
+		this.level = level;
 		this.introduction = introduction;
 		this.firstParagraph = firstParagraph;
 		this.secondParagraph = secondParagraph;
@@ -173,6 +178,14 @@ public class Articles {
 
 	public void setSubcategory(String subcategory) {
 		this.subcategory = subcategory;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public String getIntroduction() {
