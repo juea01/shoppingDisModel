@@ -70,6 +70,9 @@ public class Users {
 
 	@Column(name = "postal_code")
 	private int postalCode;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	@Column(name = "email_promotion")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -149,7 +152,7 @@ public class Users {
 			String role, int questionCount, @Email(message = "Please enter valid email") String email, String phone,
 			String address, @Size(min = 2, message = "City name should have atleast 2 characters") String city,
 			String state, @Size(min = 2, message = "Country name should have atleast 2 characters") String country,
-			int postalCode, boolean emailSubscription, boolean emailVerified, List<Orders> orders,
+			int postalCode, int experiencePoint, boolean emailSubscription, boolean emailVerified, List<Orders> orders,
 			List<Articles> articles, List<UserPrivacySetting> privacySettings, List<Comment> comments, List<Reply> reply,
 			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
@@ -171,6 +174,7 @@ public class Users {
 		this.state = state;
 		this.country = country;
 		this.postalCode = postalCode;
+		this.experiencePoint = experiencePoint;
 		this.emailSubscription = emailSubscription;
 		this.emailVerified = emailVerified;
 		this.orders = orders;
@@ -422,6 +426,14 @@ public class Users {
 
 	public void setUserSubjects(List<UserSubject> userSubjects) {
 		this.userSubjects = userSubjects;
+	}
+	
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
 	}
 
 	@Override

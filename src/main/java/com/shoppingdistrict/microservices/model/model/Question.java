@@ -28,6 +28,9 @@ public class Question {
 	@Column(name = "content")
 	@Size(min = 3, max = 250, message = "Content should have at least 3 characters and no more than 250 characters")
 	private String content;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	// this way "mappedBy" only create relationship column in Question-Option, not
 	// here, CascadeType.ALL mean also save child object (option)
@@ -62,10 +65,12 @@ public class Question {
 
 	public Question(int id,
 			@Size(min = 3, max = 250, message = "Content should have at least 3 characters and no more than 250 characters") String content,
+			int experiencePoint,
 			List<QuestionOption> options, Articles article, Subject subject, List<CompletedQuestion> completedQuestions, String questionType, int allocatedTime) {
 		super();
 		this.id = id;
 		this.content = content;
+		this.experiencePoint = experiencePoint;
 		this.options = options;
 		this.article = article;
 		this.subject = subject;
@@ -104,6 +109,14 @@ public class Question {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
 	}
 
 	public Subject getSubject() {
