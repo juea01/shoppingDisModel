@@ -3,6 +3,7 @@ package com.shoppingdistrict.microservices.model.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,8 +54,11 @@ public class UserSubject {
 	@Column(name = "completed_date", columnDefinition = "TIMESTAMP DEFAULT NULL")
 	private Timestamp completedDate;
 
-	@OneToMany(mappedBy = "userSubject") // this way "mappedBy" only create relationship column in Question-Option, not
-	// here
+	/**
+	 * This way "mappedBy" only create relationship column in CompletedQuestion, not here,
+	 * CascadeType.ALL mean also save child objects 
+	 */
+	@OneToMany(mappedBy = "userSubject", cascade = CascadeType.ALL) 
 	private List<CompletedQuestion> completedQuestions;
 
 	public UserSubject() {
