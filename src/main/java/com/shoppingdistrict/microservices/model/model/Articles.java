@@ -84,6 +84,10 @@ public class Articles {
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and article indefinitely
 	@JoinColumn(name = "user_id")
 	private Users users;
+	
+	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling article and course indefinitely
+	@JoinColumn(name = "course_id")
+	private Course course;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "previous_article_id")
@@ -121,7 +125,7 @@ public class Articles {
 			int level,
 			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType,
 			String link, String recTest, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
-			Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
+			Course course, Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
 			List<Question> questions) {
 		super();
 		this.id = id;
@@ -141,6 +145,7 @@ public class Articles {
 		this.publishDate = publishDate;
 		this.lastEditDate = lastEditDate;
 		this.users = user;
+		this.course = course;
 		this.previousArticle = previousArticle;
 		this.nextArticle = nextArticle;
 		this.comments = comments;
