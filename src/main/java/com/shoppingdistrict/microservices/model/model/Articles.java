@@ -337,6 +337,14 @@ public class Articles {
 		this.questions = questions;
 	}
 
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", category=" + category + "]";
