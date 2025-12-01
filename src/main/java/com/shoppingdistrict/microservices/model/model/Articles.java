@@ -60,6 +60,9 @@ public class Articles {
 
 	@Column(name = "lecture_type")
 	private String lectureType;
+	
+	@Column(name = "order_index")
+	private int orderIndex;
 
 	@Column(name = "link")
 	private String link;
@@ -123,7 +126,7 @@ public class Articles {
 			@Size(min = 2, max = 35, message = "Category should have at least two characters and no more than 35 characters") String category,
 			@Size(min = 2, max = 35, message = "Sub Category should have at least two characters and no more than 35 characters") String subcategory,
 			int level,
-			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType,
+			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType, int orderIndex,
 			String link, String recTest, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
 			Course course, Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
 			List<Question> questions) {
@@ -138,6 +141,7 @@ public class Articles {
 		this.secondParagraph = secondParagraph;
 		this.conclusion = conclusion;
 		this.lectureType = lectureType;
+		this.orderIndex = orderIndex;
 		this.link = link;
 		this.recTest = recTest;
 		this.premium = premium;
@@ -239,6 +243,14 @@ public class Articles {
 
 	public void setLectureType(String lectureType) {
 		this.lectureType = lectureType;
+	}
+	
+	public int getOrderIndex() {
+		return orderIndex;
+	}
+
+	public void setOrderIndex(int orderIndex) {
+		this.orderIndex = orderIndex;
 	}
 
 	public String getLink() {
