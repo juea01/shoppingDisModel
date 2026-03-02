@@ -112,10 +112,13 @@ public class Articles {
 	@OneToMany(mappedBy = "article")
 	private List<ArticleImage> images;
 
-	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in question, not in
-										// articles
+	@OneToMany(mappedBy = "article") // this way "mappedBy" only create relationship column in question, not in articles
 	@JsonIgnore
 	private List<Question> questions;
+	
+	@OneToMany(mappedBy = "course") // this way "mappedBy" only create relationship column in CompletedLecture, not in articles/course
+	@JsonIgnore
+	private List<CompletedLecture> completedLectures;
 
 	public Articles() {
 
@@ -129,7 +132,7 @@ public class Articles {
 			String introduction, String firstParagraph, String secondParagraph, String conclusion, String lectureType, int orderIndex,
 			String link, String recTest, boolean premium, boolean isPublish, Timestamp publishDate, Timestamp lastEditDate, Users user,
 			Course course, Articles previousArticle, Articles nextArticle, List<Comment> comments, List<Reply> replies,
-			List<Question> questions) {
+			List<Question> questions, List<CompletedLecture> completedLectures) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -155,6 +158,7 @@ public class Articles {
 		this.comments = comments;
 		this.replies = replies;
 		this.questions = questions;
+		this.completedLectures =  completedLectures;
 	}
 
 	public int getId() {
@@ -356,6 +360,7 @@ public class Articles {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+	
 
 	@Override
 	public String toString() {

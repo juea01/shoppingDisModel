@@ -137,6 +137,10 @@ public class Users {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<PaidSubscription> paidSubscriptions;
+	
+	@OneToMany(mappedBy = "user") // this way "mappedBy" only create relationship column in UserCourse, not in user
+	@JsonIgnore
+	private List<UserCourse> userCourses;
 
 	@Column(name = "question_count")
 	private int questionCount;
@@ -144,7 +148,7 @@ public class Users {
 	@Column(name = "que_count_reset_date")
 	private Timestamp queCountResetDate;
 	
-
+	
 	public Users() {
 
 	}
@@ -161,7 +165,7 @@ public class Users {
 			@Size(min = 2, message = "Occupation should have at least two characters") String occupation,
 			@Size(min = 2, message = "Gender should have at least two characters") String gender, boolean above18,
 			boolean acceptTermsConditions, String emailConfirmCode, String passwordResetCode,
-			List<UserSubject> userSubjects, List<Subject> subjects, List<Course> courses, List<PaidSubscription> paidSubscriptions, Timestamp queCountResetDate) {
+			List<UserSubject> userSubjects, List<Subject> subjects, List<Course> courses, List<PaidSubscription> paidSubscriptions, List<UserCourse> userCourses, Timestamp queCountResetDate) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -195,6 +199,7 @@ public class Users {
 		this.userSubjects = userSubjects;
 		this.subjects = subjects;
 		this.courses = courses;
+		this.userCourses = userCourses;
 		this.paidSubscriptions = paidSubscriptions;
 		this.queCountResetDate = queCountResetDate;
 	}
@@ -444,6 +449,15 @@ public class Users {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
+	}
+	
+	
+	public List<UserCourse> getUserCourses() {
+		return userCourses;
+	}
+
+	public void setUserCourses(List<UserCourse> userCourses) {
+		this.userCourses = userCourses;
 	}
 
 	public void setExperiencePoint(int experiencePoint) {

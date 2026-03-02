@@ -60,6 +60,10 @@ public class Course {
 	@OneToMany(mappedBy = "course")
     @JsonIgnore 
 	private List<Articles> articles;
+	
+	@OneToMany(mappedBy = "course")
+    @JsonIgnore 
+	private List<UserCourse> userCourses;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and subject indefinitely
 	@JoinColumn(name = "author_id")
@@ -75,7 +79,7 @@ public class Course {
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
 			@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters") String description,
-			boolean premium, boolean isPublish, List<Articles> articles, Users user) {
+			boolean premium, boolean isPublish, List<Articles> articles, List<UserCourse> userCourses, Users user) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -86,6 +90,7 @@ public class Course {
 		this.premium = premium;
 		this.isPublish = isPublish;
 		this.articles = articles;
+		this.userCourses = userCourses;
 		this.user = user;
 	}
 
@@ -129,7 +134,6 @@ public class Course {
 		this.title = title;
 	}
 
-
 	public boolean isPremium() {
 		return premium;
 	}
@@ -170,5 +174,14 @@ public class Course {
 	public void setArticles(List<Articles> articles) {
 		this.articles = articles;
 	}
+
+	public List<UserCourse> getUserCourses() {
+		return userCourses;
+	}
+
+	public void setUserCourses(List<UserCourse> userCourses) {
+		this.userCourses = userCourses;
+	}
+	
 	
 }
