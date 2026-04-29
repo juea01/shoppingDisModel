@@ -1,9 +1,12 @@
 package com.shoppingdistrict.microservices.model.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +16,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class PaidSubscription {
@@ -30,15 +32,25 @@ public class PaidSubscription {
 	@Column(name="ext_id")
 	private String thirdPartyUserId;  //for example stripe customer id
 	
+	@Column(name = "subscription_id", length = 255)
+    private String stripeSubscriptionId;
+	
 	@Column(name="subscription_type")
 	private String subscriptionType;
 	
 	@Column(name="comment")
 	private String comment;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private SubscriptionStatus status;
+	
 	@Column(name = "active_subscription")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean activeSubscription;
+	
+	@Column(name = "amount", precision = 10, scale = 2, nullable = false)
+	private BigDecimal amount;
 	
 	@Column(name = "paymentdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Timestamp lastPaidDate;
@@ -50,14 +62,17 @@ public class PaidSubscription {
 		
 	}
 	
-	public PaidSubscription(int id, Users user, String thirdPartyUserId, String subscriptionType, String comment,
-			boolean activeSubscription, Timestamp lastPaidDate, Timestamp expiryDate) {
+	public PaidSubscription(int id, Users user, String thirdPartyUserId, String stripeSubscriptionId, String subscriptionType, BigDecimal amount, String comment,
+			SubscriptionStatus status, boolean activeSubscription, Timestamp lastPaidDate, Timestamp expiryDate) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.thirdPartyUserId = thirdPartyUserId;
+		this.stripeSubscriptionId = stripeSubscriptionId;
 		this.subscriptionType = subscriptionType;
+		this.amount = amount;
 		this.comment = comment;
+		this.status = status;
 		this.activeSubscription = activeSubscription;
 		this.lastPaidDate = lastPaidDate;
 		this.expiryDate = expiryDate;
@@ -86,6 +101,14 @@ public class PaidSubscription {
 	public void setThirdPartyUserId(String thirdPartyUserId) {
 		this.thirdPartyUserId = thirdPartyUserId;
 	}
+	
+	public String getStripeSubscriptionId() {
+		return stripeSubscriptionId;
+	}
+
+	public void setStripeSubscriptionId(String stripeSubscriptionId) {
+		this.stripeSubscriptionId = stripeSubscriptionId;
+	}
 
 	public String getSubscriptionType() {
 		return subscriptionType;
@@ -93,6 +116,14 @@ public class PaidSubscription {
 
 	public void setSubscriptionType(String subscriptionType) {
 		this.subscriptionType = subscriptionType;
+	}
+	
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public String getComment() {
@@ -110,6 +141,14 @@ public class PaidSubscription {
 	public void setActiveSubscription(boolean activeSubscription) {
 		this.activeSubscription = activeSubscription;
 	}
+	
+	public SubscriptionStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(SubscriptionStatus status) {
+		this.status = status;
+	}
 
 	public Timestamp getLastPaidDate() {
 		return lastPaidDate;
@@ -126,8 +165,5 @@ public class PaidSubscription {
 	public void setExpiryDate(Timestamp expiryDate) {
 		this.expiryDate = expiryDate;
 	}
-	
-	
-	
 	
 }

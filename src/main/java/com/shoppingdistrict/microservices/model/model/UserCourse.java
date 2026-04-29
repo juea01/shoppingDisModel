@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,6 +54,10 @@ public class UserCourse {
 	
 	@Column(name = "enrollment_date", columnDefinition = "TIMESTAMP DEFAULT NULL")
 	private Timestamp enrollmentDate;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private EnrollmentStatus status;
 
 	/**
 	 * This way "mappedBy" only create relationship column in CompletedLecture, not here,
@@ -65,8 +71,8 @@ public class UserCourse {
 
 	}
 	
-	public UserCourse(int id, Users user, Course course, boolean completed, boolean showOnProfile,
-			Timestamp firstCompletedAt, Timestamp lastCompletedAt, Timestamp enrollmentDate,
+	public UserCourse(int id, Users user, Course course, boolean completed, boolean showOnProfile, 
+			Timestamp firstCompletedAt, Timestamp lastCompletedAt, Timestamp enrollmentDate, EnrollmentStatus status,
 			List<CompletedLecture> completedLectures) {
 		super();
 		this.id = id;
@@ -77,6 +83,7 @@ public class UserCourse {
 		this.firstCompletedAt = firstCompletedAt;
 		this.lastCompletedAt = lastCompletedAt;
 		this.enrollmentDate = enrollmentDate;
+		this.status = status;
 		this.completedLectures = completedLectures;
 	}
 
@@ -169,5 +176,12 @@ public class UserCourse {
 		this.completedLectures = completedLectures;
 	}
 
+	public EnrollmentStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(EnrollmentStatus status) {
+		this.status = status;
+	}
 	
 }

@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
@@ -36,6 +35,9 @@ public class Users {
 	@Column(name = "username")
 	@Size(min = 2, message = "Name should have at least two characters")
 	private String username;
+	
+	@Column(name="stripe_cus_id")
+	private String stripeCustomerId;  //for example stripe customer id
 
 	@Column(name = "password")
 	@Size(min = 7, message = "Password should have at least seven characters")
@@ -156,6 +158,7 @@ public class Users {
 	public Users(int id, @Size(min = 2, message = "First Name should have at least two characters") String firstname,
 			@Size(min = 2, message = "Last Name should have at least two characters") String lastname,
 			@Size(min = 2, message = "User Name should have at least two characters") String username,
+			String stripeCustomerId,
 			@Size(min = 7, message = "Password should have at least seven characters") String password, int enabled,
 			String role, int questionCount, @Email(message = "Please enter valid email") String email, String phone,
 			String address, @Size(min = 2, message = "City name should have atleast 2 characters") String city,
@@ -171,6 +174,7 @@ public class Users {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
+		this.stripeCustomerId = stripeCustomerId; 
 		this.password = password;
 		this.enabled = enabled;
 		this.role = role;
@@ -218,6 +222,14 @@ public class Users {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getStripeCustomerId() {
+		return stripeCustomerId;
+	}
+
+	public void setStripeCustomerId(String stripeCustomerId) {
+		this.stripeCustomerId = stripeCustomerId;
 	}
 
 	public String getPassword() {
