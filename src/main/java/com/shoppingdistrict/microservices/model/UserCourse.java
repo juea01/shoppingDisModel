@@ -1,5 +1,6 @@
 package com.shoppingdistrict.microservices.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -56,7 +57,19 @@ public class UserCourse {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
 	private EnrollmentStatus status;
-
+	
+	@Column(name = "completion_percentage", precision = 10, scale = 2)
+	private BigDecimal completionPercentage;
+	
+	@Column(name = "completed_items")
+	private int completedItems;
+	
+	@Column(name = "total_items")
+	private int totalItems;
+	
+	@Column(name = "last_progress_update", columnDefinition = "TIMESTAMP DEFAULT NULL")
+	private Timestamp lastProgressUpdate;
+	
 	/**
 	 * This way "mappedBy" only create relationship column in CompletedLecture, not here,
 	 * CascadeType.ALL mean also save child objects 
@@ -71,6 +84,7 @@ public class UserCourse {
 	
 	public UserCourse(int id, Users user, Course course, boolean completed, boolean showOnProfile, 
 			Timestamp firstCompletedAt, Timestamp lastCompletedAt, Timestamp enrollmentDate, EnrollmentStatus status,
+			 BigDecimal completionPercentage,  int completedItems, int totalItems, Timestamp lastProgressUpdate,
 			List<CompletedLecture> completedLectures) {
 		super();
 		this.id = id;
@@ -82,6 +96,10 @@ public class UserCourse {
 		this.lastCompletedAt = lastCompletedAt;
 		this.enrollmentDate = enrollmentDate;
 		this.status = status;
+		this.completionPercentage = completionPercentage;
+		this.completedItems = completedItems;
+		this.totalItems = totalItems;
+		this.lastProgressUpdate = lastProgressUpdate;
 		this.completedLectures = completedLectures;
 	}
 
@@ -180,6 +198,38 @@ public class UserCourse {
 
 	public void setStatus(EnrollmentStatus status) {
 		this.status = status;
+	}
+
+	public BigDecimal getCompletionPercentage() {
+		return completionPercentage;
+	}
+
+	public void setCompletionPercentage(BigDecimal completionPercentage) {
+		this.completionPercentage = completionPercentage;
+	}
+
+	public int getCompletedItems() {
+		return completedItems;
+	}
+
+	public void setCompletedItems(int completedItems) {
+		this.completedItems = completedItems;
+	}
+
+	public int getTotalItems() {
+		return totalItems;
+	}
+
+	public void setTotalItems(int totalItems) {
+		this.totalItems = totalItems;
+	}
+
+	public Timestamp getLastProgressUpdate() {
+		return lastProgressUpdate;
+	}
+
+	public void setLastProgressUpdate(Timestamp lastProgressUpdate) {
+		this.lastProgressUpdate = lastProgressUpdate;
 	}
 	
 }

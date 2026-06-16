@@ -1,5 +1,6 @@
 package com.shoppingdistrict.microservices.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -50,6 +51,15 @@ public class UserSubject {
 	
 	@Column(name = "completed_date", columnDefinition = "TIMESTAMP DEFAULT NULL")
 	private Timestamp completedDate;
+	
+	@Column(name = "completion_percentage", precision = 10, scale = 2)
+	private BigDecimal completionPercentage;
+	
+	@Column(name = "total_items")
+	private int totalItems;
+	
+	@Column(name = "attempt_type")
+	private String attemptType;
 
 	/**
 	 * This way "mappedBy" only create relationship column in CompletedQuestion, not here,
@@ -63,7 +73,8 @@ public class UserSubject {
 	}
 
 	public UserSubject(int id, int numCompletedQue, int enabled, Users user, Subject subject, boolean completed, 
-			Timestamp completedDate, boolean showOnProfile, List<CompletedQuestion> completedQuestions) {
+			Timestamp completedDate, boolean showOnProfile,  BigDecimal completionPercentage, int totalItems,  
+			String attemptType, List<CompletedQuestion> completedQuestions) {
 		super();
 		this.id = id;
 		this.numCompletedQue = numCompletedQue;
@@ -73,6 +84,9 @@ public class UserSubject {
 		this.completed = completed;
 		this.completedDate = completedDate;
 		this.showOnProfile = showOnProfile;
+		this.completionPercentage = completionPercentage;
+		this.totalItems = totalItems;
+		this.attemptType = attemptType;
 		this.completedQuestions = completedQuestions;
 	}
 
@@ -147,7 +161,29 @@ public class UserSubject {
 	public void setCompletedDate(Timestamp completedDate) {
 		this.completedDate = completedDate;
 	}
-	
-	
 
+	public BigDecimal getCompletionPercentage() {
+		return completionPercentage;
+	}
+
+	public void setCompletionPercentage(BigDecimal completionPercentage) {
+		this.completionPercentage = completionPercentage;
+	}
+
+	public int getTotalItems() {
+		return totalItems;
+	}
+
+	public void setTotalItems(int totalItems) {
+		this.totalItems = totalItems;
+	}
+
+	public String getAttemptType() {
+		return attemptType;
+	}
+
+	public void setAttemptType(String attemptType) {
+		this.attemptType = attemptType;
+	}
+	
 }
