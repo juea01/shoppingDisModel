@@ -24,9 +24,9 @@ public class CompletedLecture {
 	@JoinColumn(name = "user_course_id")
 	private UserCourse userCourse;
 
-	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling course and user-course indefinitely
+	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling Completed-lecture and lecture indefinitely
 	@JoinColumn(name = "article_id")
-	private Articles course;
+	private Articles lecture;
 
 	@Column(name = "completion_count")
 	private int completionCount;
@@ -42,12 +42,12 @@ public class CompletedLecture {
 
 	}
 
-	public CompletedLecture(int id, UserCourse userCourse, Articles course, int completionCount,
+	public CompletedLecture(int id, UserCourse userCourse, Articles lecture, int completionCount,
 			Timestamp firstCompletedAt, Timestamp lastCompletedAt) {
 		super();
 		this.id = id;
 		this.userCourse = userCourse;
-		this.course = course;
+		this.lecture = lecture;
 		this.completionCount = completionCount;
 		this.firstCompletedAt = firstCompletedAt;
 		this.lastCompletedAt = lastCompletedAt;
@@ -74,13 +74,13 @@ public class CompletedLecture {
 	}
 
 
-	public Articles getCourse() {
-		return course;
+	public Articles getLecture() {
+		return lecture;
 	}
 
 
-	public void setCourse(Articles course) {
-		this.course = course;
+	public void setLecture(Articles lecture) {
+		this.lecture = lecture;
 	}
 
 

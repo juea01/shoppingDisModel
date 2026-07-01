@@ -112,7 +112,7 @@ public class Articles {
 	@JsonIgnore
 	private List<Question> questions;
 	
-	@OneToMany(mappedBy = "course") // this way "mappedBy" only create relationship column in CompletedLecture, not in articles/course
+	@OneToMany(mappedBy = "lecture") // this way "mappedBy" only create relationship column in CompletedLecture, not in articles/lecture
 	@JsonIgnore
 	private List<CompletedLecture> completedLectures;
 
