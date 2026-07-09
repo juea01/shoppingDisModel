@@ -1,5 +1,6 @@
 package com.shoppingdistrict.microservices.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -51,6 +52,12 @@ public class Course {
 	@Column(name = "is_publish")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isPublish;
+	
+	@Column(name = "creationdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Timestamp publishDate;
+
+	@Column(name = "lasteditdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	private Timestamp lastEditDate;
 
 	/**
 	 * This way "mappedBy" only create relationship column in Articles, not here,
@@ -74,7 +81,7 @@ public class Course {
 	public Course(int id,
 			@Size(min = 3, max = 30, message = "Category should have at least 3 characters and no more than 30 characters") String category,
 			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
-			int level,
+			int level, Timestamp publishDate, Timestamp lastEditDate,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
 			@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters") String description,
 			boolean premium, boolean isPublish, List<Articles> articles, List<UserCourse> userCourses, Users user) {
@@ -87,6 +94,8 @@ public class Course {
 		this.description = description;
 		this.premium = premium;
 		this.isPublish = isPublish;
+		this.publishDate = publishDate;
+		this.lastEditDate = lastEditDate;
 		this.articles = articles;
 		this.userCourses = userCourses;
 		this.user = user;
@@ -179,6 +188,22 @@ public class Course {
 
 	public void setUserCourses(List<UserCourse> userCourses) {
 		this.userCourses = userCourses;
+	}
+	
+	public Timestamp getPublishDate() {
+		return publishDate;
+	}
+
+	public Timestamp getLastEditDate() {
+		return lastEditDate;
+	}
+
+	public void setPublishDate(Timestamp publishDate) {
+		this.publishDate = publishDate;
+	}
+
+	public void setLastEditDate(Timestamp lastEditDate) {
+		this.lastEditDate = lastEditDate;
 	}
 	
 	
