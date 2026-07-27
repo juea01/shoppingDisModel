@@ -43,7 +43,7 @@ public class MicroProject {
 	@Column(name = "category")
 	private String category;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "micro_project_skill", joinColumns = @JoinColumn(name = "micro_project_id"))
 	@Column(name = "skill")
 	private List<String> skills;
@@ -54,7 +54,7 @@ public class MicroProject {
 	@Column(name = "team_size")
 	private int teamSize;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "micro_project_open_role", joinColumns = @JoinColumn(name = "micro_project_id"))
 	@Column(name = "open_role")
 	private List<String> openRoles;
