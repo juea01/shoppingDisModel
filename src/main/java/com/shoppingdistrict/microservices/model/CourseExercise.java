@@ -2,9 +2,12 @@ package com.shoppingdistrict.microservices.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
@@ -30,8 +33,10 @@ public class CourseExercise {
     @Column(name = "course_id", nullable = false)
     private int courseId;
 
-    @Column(name = "exercise_id", nullable = false)
-    private int exerciseId;
+    
+    @ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling subject and course-exercise indefinitely
+	@JoinColumn(name = "exercise_id")
+	private Subject subject;
     
     @Column(name = "exercise_title")
 	@Size(min = 3, max = 30, message = "Exercise title should have at least 3 characters and no more than 30 characters")
@@ -48,16 +53,16 @@ public class CourseExercise {
     	
     }
     
-	public CourseExercise(int id, int courseId, int exerciseId, 
+	public CourseExercise(int id, int courseId,
 			@Size(min = 3, max = 30, message = "Exercise title should have at least 3 characters and no more than 30 characters") String exerciseTitle, 
-			Integer displayOrder, boolean active) {
+			Integer displayOrder, boolean active, Subject subject) {
 		super();
 		this.id = id;
 		this.courseId = courseId;
-		this.exerciseId = exerciseId;
 		this.exerciseTitle = exerciseTitle;
 		this.displayOrder = displayOrder;
 		this.active = active;
+		this.subject = subject;
 	}
 
 	public int getId() {
@@ -74,14 +79,6 @@ public class CourseExercise {
 
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
-	}
-
-	public int getExerciseId() {
-		return exerciseId;
-	}
-
-	public void setExerciseId(int exerciseId) {
-		this.exerciseId = exerciseId;
 	}
 
 	public Integer getDisplayOrder() {
@@ -107,5 +104,12 @@ public class CourseExercise {
 	public void setExerciseTitle(String exerciseTitle) {
 		this.exerciseTitle = exerciseTitle;
 	}
-	
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
 }

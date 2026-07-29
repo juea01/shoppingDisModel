@@ -60,6 +60,13 @@ public class UserSubject {
 	
 	@Column(name = "attempt_type")
 	private String attemptType;
+	
+	/**
+	 * In the database table, column associated to this property is created as nullable non-foreign key column even
+	 * though we have course table in our database.
+	 */
+	@Column(name = "course_id")
+	private int courseId;
 
 	/**
 	 * This way "mappedBy" only create relationship column in CompletedQuestion, not here,
@@ -74,7 +81,7 @@ public class UserSubject {
 
 	public UserSubject(int id, int numCompletedQue, int enabled, Users user, Subject subject, boolean completed, 
 			Timestamp completedDate, boolean showOnProfile,  BigDecimal completionPercentage, int totalItems,  
-			String attemptType, List<CompletedQuestion> completedQuestions) {
+			String attemptType, List<CompletedQuestion> completedQuestions, int courseId) {
 		super();
 		this.id = id;
 		this.numCompletedQue = numCompletedQue;
@@ -88,6 +95,7 @@ public class UserSubject {
 		this.totalItems = totalItems;
 		this.attemptType = attemptType;
 		this.completedQuestions = completedQuestions;
+		this.courseId = courseId;
 	}
 
 	public int getId() {
@@ -185,5 +193,15 @@ public class UserSubject {
 	public void setAttemptType(String attemptType) {
 		this.attemptType = attemptType;
 	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+	
+	
 	
 }

@@ -65,6 +65,10 @@ public class Subject {
 	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in UserSubject, not here
 	@JsonIgnore
 	private List<UserSubject> userSubjects;
+	
+	@OneToMany(mappedBy = "subject") // this way "mappedBy" only create relationship column in CourseExercise, not here
+	@JsonIgnore
+	private List<CourseExercise> courseExercises;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and subject indefinitely
 	@JoinColumn(name = "author_id")
@@ -80,7 +84,7 @@ public class Subject {
 			int level,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
 			@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters") String description,
-			boolean premium, boolean isPublish, List<Question> questions, List<UserSubject> userSubjects, Users user) {
+			boolean premium, boolean isPublish, List<Question> questions, List<UserSubject> userSubjects, List<CourseExercise> courseExercises, Users user) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -92,6 +96,7 @@ public class Subject {
 		this.isPublish = isPublish;
 		this.questions = questions;
 		this.userSubjects = userSubjects;
+		this.courseExercises = courseExercises;
 		this.user = user;
 	}
 
@@ -165,6 +170,14 @@ public class Subject {
 
 	public void setUserSubjects(List<UserSubject> userSubjects) {
 		this.userSubjects = userSubjects;
+	}
+	
+	public List<CourseExercise> getCourseExercises() {
+		return courseExercises;
+	}
+
+	public void setCourseExercises(List<CourseExercise> courseExercises) {
+		this.courseExercises = courseExercises;
 	}
 
 	public Users getUser() {
