@@ -73,6 +73,9 @@ public class Course {
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and subject indefinitely
 	@JoinColumn(name = "author_id")
 	private Users user;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	public Course() {
 
@@ -81,7 +84,7 @@ public class Course {
 	public Course(int id,
 			@Size(min = 3, max = 30, message = "Category should have at least 3 characters and no more than 30 characters") String category,
 			@Size(min = 2, max = 30, message = "Sub Category should have at least 2 characters and no more than 30 characters") String subCategory,
-			int level, Timestamp publishDate, Timestamp lastEditDate,
+			int level, int experiencePoint, Timestamp publishDate, Timestamp lastEditDate,
 			@Size(min = 3, max = 30, message = "Title should have at least 3 characters and no more than 30 characters") String title,
 			@Size(min = 5, max = 250, message = "Description should have at least 5 characters and no more than 250 characters") String description,
 			boolean premium, boolean isPublish, List<Articles> articles, List<UserCourse> userCourses, Users user) {
@@ -90,6 +93,7 @@ public class Course {
 		this.category = category;
 		this.subCategory = subCategory;
 		this.level = level;
+		this.experiencePoint = experiencePoint;
 		this.title = title;
 		this.description = description;
 		this.premium = premium;
@@ -205,6 +209,13 @@ public class Course {
 	public void setLastEditDate(Timestamp lastEditDate) {
 		this.lastEditDate = lastEditDate;
 	}
-	
+
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
+	}
 	
 }

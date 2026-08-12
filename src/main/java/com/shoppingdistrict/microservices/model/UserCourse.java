@@ -61,11 +61,20 @@ public class UserCourse {
 	@Column(name = "completion_percentage", precision = 10, scale = 2)
 	private BigDecimal completionPercentage;
 	
+	@Column(name = "course_completion_percentage", precision = 10, scale = 2)
+	private BigDecimal courseCompletionPercentage;
+	
 	@Column(name = "completed_items")
 	private int completedItems;
 	
 	@Column(name = "total_items")
 	private int totalItems;
+
+	@Column(name = "total_exercise ")
+	private int totalExercise;
+	
+	@Column(name = "completed_exercise ")
+	private int completedExercise;
 	
 	@Column(name = "last_progress_update", columnDefinition = "TIMESTAMP DEFAULT NULL")
 	private Timestamp lastProgressUpdate;
@@ -77,6 +86,9 @@ public class UserCourse {
 	@OneToMany(mappedBy = "userCourse", cascade = CascadeType.ALL) 
 	@JsonIgnore
 	private List<CompletedLecture> completedLectures;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	public UserCourse() {
 
@@ -84,7 +96,8 @@ public class UserCourse {
 	
 	public UserCourse(int id, Users user, Course course, boolean completed, boolean showOnProfile, 
 			Timestamp firstCompletedAt, Timestamp lastCompletedAt, Timestamp enrollmentDate, EnrollmentStatus status,
-			 BigDecimal completionPercentage,  int completedItems, int totalItems, Timestamp lastProgressUpdate,
+			 BigDecimal completionPercentage, BigDecimal courseCompletionPercentage,  int completedItems, int totalItems, int totalExercise, int completedExercise, 
+			 int experiencePoint, Timestamp lastProgressUpdate,
 			List<CompletedLecture> completedLectures) {
 		super();
 		this.id = id;
@@ -97,8 +110,12 @@ public class UserCourse {
 		this.enrollmentDate = enrollmentDate;
 		this.status = status;
 		this.completionPercentage = completionPercentage;
+		this.courseCompletionPercentage = courseCompletionPercentage;
 		this.completedItems = completedItems;
 		this.totalItems = totalItems;
+		this.totalExercise = totalExercise;
+		this.completedExercise = completedExercise;
+		this.experiencePoint = experiencePoint;
 		this.lastProgressUpdate = lastProgressUpdate;
 		this.completedLectures = completedLectures;
 	}
@@ -230,6 +247,38 @@ public class UserCourse {
 
 	public void setLastProgressUpdate(Timestamp lastProgressUpdate) {
 		this.lastProgressUpdate = lastProgressUpdate;
+	}
+	
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
+	}
+
+	public int getTotalExercise() {
+		return totalExercise;
+	}
+
+	public void setTotalExercise(int totalExercise) {
+		this.totalExercise = totalExercise;
+	}
+
+	public int getCompletedExercise() {
+		return completedExercise;
+	}
+
+	public void setCompletedExercise(int completedExercise) {
+		this.completedExercise = completedExercise;
+	}
+
+	public BigDecimal getCourseCompletionPercentage() {
+		return courseCompletionPercentage;
+	}
+
+	public void setCourseCompletionPercentage(BigDecimal courseCompletionPercentage) {
+		this.courseCompletionPercentage = courseCompletionPercentage;
 	}
 	
 }
