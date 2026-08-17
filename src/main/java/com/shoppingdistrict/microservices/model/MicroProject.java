@@ -1,4 +1,4 @@
-package com.shoppingdistrict.microservices.model.model;
+package com.shoppingdistrict.microservices.model;
 
 import java.sql.Timestamp;
 import java.util.List;
