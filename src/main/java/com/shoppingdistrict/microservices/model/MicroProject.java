@@ -3,6 +3,7 @@ package com.shoppingdistrict.microservices.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -53,15 +55,22 @@ public class MicroProject {
 
 	@Column(name = "team_size")
 	private int teamSize;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "micro_project_open_role", joinColumns = @JoinColumn(name = "micro_project_id"))
 	@Column(name = "open_role")
 	private List<String> openRoles;
+	
+	// here, CascadeType.ALL mean also save child object (option)
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL) 
+	private List<UserMicroProject> contributors;
 
 	@ManyToOne(fetch = FetchType.LAZY) // Lazy should be here to avoid loops of calling user and project indefinitely
 	@JoinColumn(name = "user_id")
-	private Users users;
+	private Users owner;
 
 	@Column(name = "created_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp createdDate;
@@ -72,6 +81,32 @@ public class MicroProject {
 	public MicroProject() {
 
 	}
+	
+	public MicroProject(int id,
+			@Size(min = 2, max = 100, message = "Title should have at least two characters and no more than 100 characters") String title,
+			@Size(max = 255, message = "Short description should have no more than 255 characters") String shortDescription,
+			String fullDescription, String skillLevel, String status, String category, List<String> skills,
+			String githubLink, int teamSize, int experiencePoint, List<String> openRoles,  List<UserMicroProject> contributors, Users owner,
+			Timestamp createdDate, Timestamp lastEditDate) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.shortDescription = shortDescription;
+		this.fullDescription = fullDescription;
+		this.skillLevel = skillLevel;
+		this.status = status;
+		this.category = category;
+		this.skills = skills;
+		this.githubLink = githubLink;
+		this.teamSize = teamSize;
+		this.experiencePoint = experiencePoint;
+		this.openRoles = openRoles;
+		this.contributors = contributors;
+		this.owner = owner;
+		this.createdDate = createdDate;
+		this.lastEditDate = lastEditDate;
+	}
+
 
 	public int getId() {
 		return id;
@@ -153,20 +188,37 @@ public class MicroProject {
 		this.teamSize = teamSize;
 	}
 
+	
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
+	}
+
+	public Users getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Users owner) {
+		this.owner = owner;
+	}
+	
+	public List<UserMicroProject> getContributors() {
+		return contributors;
+	}
+
+	public void setContributors(List<UserMicroProject> contributors) {
+		this.contributors = contributors;
+	}
+
 	public List<String> getOpenRoles() {
 		return openRoles;
 	}
 
 	public void setOpenRoles(List<String> openRoles) {
 		this.openRoles = openRoles;
-	}
-
-	public Users getUser() {
-		return users;
-	}
-
-	public void setUser(Users user) {
-		this.users = user;
 	}
 
 	public Timestamp getCreatedDate() {
