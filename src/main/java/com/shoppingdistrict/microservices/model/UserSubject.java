@@ -74,6 +74,9 @@ public class UserSubject {
 	 */
 	@OneToMany(mappedBy = "userSubject", cascade = CascadeType.ALL) 
 	private List<CompletedQuestion> completedQuestions;
+	
+	@Column(name = "experience_point")
+	private int experiencePoint;
 
 	public UserSubject() {
 
@@ -81,7 +84,7 @@ public class UserSubject {
 
 	public UserSubject(int id, int numCompletedQue, int enabled, Users user, Subject subject, boolean completed, 
 			Timestamp completedDate, boolean showOnProfile,  BigDecimal completionPercentage, int totalItems,  
-			String attemptType, List<CompletedQuestion> completedQuestions, int courseId) {
+			String attemptType, List<CompletedQuestion> completedQuestions, int experiencePoint, int courseId) {
 		super();
 		this.id = id;
 		this.numCompletedQue = numCompletedQue;
@@ -95,6 +98,7 @@ public class UserSubject {
 		this.totalItems = totalItems;
 		this.attemptType = attemptType;
 		this.completedQuestions = completedQuestions;
+		this.experiencePoint = experiencePoint;
 		this.courseId = courseId;
 	}
 
@@ -201,7 +205,13 @@ public class UserSubject {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-	
-	
+
+	public int getExperiencePoint() {
+		return experiencePoint;
+	}
+
+	public void setExperiencePoint(int experiencePoint) {
+		this.experiencePoint = experiencePoint;
+	}
 	
 }
