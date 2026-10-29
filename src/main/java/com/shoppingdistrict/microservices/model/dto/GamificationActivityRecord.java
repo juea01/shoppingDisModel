@@ -5,16 +5,21 @@ public class GamificationActivityRecord {
 	private String activityId;
 	private int userId;
 	private String stableUserId;
+	private String idempotencyKey;
 	private String username;
 	private String displayName;
 
+	private String shortDescription;
+	
 	private int awardedXp;
 	private String occurredAt;
-
+	
 	private boolean qualifiesForStreak;
 	private boolean qualifiesForLeaderboard;
 
 	private GamificationActivitySource sourceType;
+	private GamificationActivityType activityType;
+	private GamificationXpCategory xpCategory;
 	private int sourceId;
 
 	private int badgeCount;
@@ -26,16 +31,18 @@ public class GamificationActivityRecord {
 
 	}
 
-	public GamificationActivityRecord(String activityId, int userId, String stableUserId, String username,
-			String displayName, int awardedXp, String occurredAt, boolean qualifiesForStreak,
+	public GamificationActivityRecord(String activityId, int userId, String stableUserId, String idempotencyKey, String username,
+			String displayName, String shortDescription, int awardedXp, String occurredAt, boolean qualifiesForStreak,
 			boolean qualifiesForLeaderboard, GamificationActivitySource sourceType, int sourceId, int badgeCount,
 			String countryCode, String universityId) {
 		super();
 		this.activityId = activityId;
 		this.userId = userId;
 		this.stableUserId = stableUserId;
+		this.idempotencyKey = idempotencyKey;
 		this.username = username;
 		this.displayName = displayName;
+		this.shortDescription = shortDescription;
 		this.awardedXp = awardedXp;
 		this.occurredAt = occurredAt;
 		this.qualifiesForStreak = qualifiesForStreak;
@@ -69,6 +76,30 @@ public class GamificationActivityRecord {
 
 	public void setStableUserId(String stableUserId) {
 		this.stableUserId = stableUserId;
+	}
+	
+	public String getIdempotencyKey() {
+		return idempotencyKey;
+	}
+
+	public void setIdempotencyKey(String idempotencyKey) {
+		this.idempotencyKey = idempotencyKey;
+	}
+
+	public GamificationActivityType getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(GamificationActivityType activityType) {
+		this.activityType = activityType;
+	}
+
+	public GamificationXpCategory getXpCategory() {
+		return xpCategory;
+	}
+
+	public void setXpCategory(GamificationXpCategory xpCategory) {
+		this.xpCategory = xpCategory;
 	}
 
 	public String getUsername() {
@@ -159,4 +190,12 @@ public class GamificationActivityRecord {
 		this.universityId = universityId;
 	}
 
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+	
 }
